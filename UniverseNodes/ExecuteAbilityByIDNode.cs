@@ -13,6 +13,9 @@ namespace Strategies
 
         [ExposeField]
         public bool IgnorePredicates;
+        
+        [ExposeField]
+        public bool Enable;
 
         [Connection(ConnectionPointType.In, "<Entity> Target")]
         public GenericNode<Entity> Target;
@@ -22,7 +25,7 @@ namespace Strategies
             entity.Command(new ExecuteAbilityByIDCommand
             {
                 AbilityIndex = AbilityId,
-                Enable = true,
+                Enable = Enable,
                 Owner = entity,
                 IgnorePredicates = this.IgnorePredicates,
                 Target = Target?.Value(entity),
