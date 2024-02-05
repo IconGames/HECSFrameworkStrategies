@@ -15,6 +15,7 @@ namespace Components
         public int CurrentIteration;
         
         public Stack<IDecisionNode> ExitStateNodes = new Stack<IDecisionNode>(3); //выход из текущего стейта, сеттим на входе в стейт
+        public Stack<State> StatesStack = new Stack<State>(3);
 
         public void ExitFromStates()
         {

@@ -58,11 +58,13 @@ namespace Strategies
         public void Stop(Entity entity)
         {
             entity.GetComponent<StateContextComponent>().StrategyState = StrategyState.Stop;
+            entity.GetComponent<StateContextComponent>().StatesStack.Pop();
         }
 
         public void UnPause(Entity entity)
         {
             entity.GetComponent<StateContextComponent>().StrategyState = StrategyState.Run;
+            entity.GetComponent<StateContextComponent>().CurrentState = this;
         }
 
         public override void Execute(Entity entity)
@@ -76,6 +78,7 @@ namespace Strategies
             context.CurrentState = this;
             context.ExitStateNodes.Push(exitNode);
             context.StrategyState = StrategyState.Run;
+            context.StatesStack.Push(this);
             Execute(entity);
         }
     }

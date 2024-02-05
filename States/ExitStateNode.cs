@@ -18,9 +18,16 @@ namespace Strategies
 
         protected override void Run(Entity entity)
         {
+            var context = entity.GetComponent<StateContextComponent>();
             currentState.Stop(entity);
             CallNodesWhenExit?.Execute(entity);
-            entity.GetComponent<StateContextComponent>().ExitStateNodes.Pop().Execute(entity);
+            
+            if (context.StatesStack.Count > 0)
+            {
+                context.StatesStack.Peek().UnPause(entity);
+            }
+            
+            context.ExitStateNodes.Pop().Execute(entity);
         }
 
         public void AddState(State state)

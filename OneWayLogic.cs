@@ -12,7 +12,7 @@ namespace Strategies
             if (isInited)
                 return;
 
-            isInited = true;
+            // isInited = true;
             
             base.Init();
             
@@ -23,6 +23,7 @@ namespace Strategies
                     oneWayLogicExit.Exit = Exit;
                 } 
             }
+            isInited = true;
         }
     }
 }
