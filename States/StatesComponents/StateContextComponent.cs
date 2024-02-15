@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using HECSFramework.Core;
 using Strategies;
 
@@ -21,6 +22,11 @@ namespace Components
         {
             StrategyState = StrategyState.Stop;
             ExitStateNodes.Clear();
+            foreach (var state in StatesStack.Where(state => state.OnForceStopNode != null))
+            {
+                state.OnForceStopNode.Execute(Owner);
+            }
+            StatesStack.Clear();
         }
 
         public void Dispose()

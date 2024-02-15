@@ -17,6 +17,7 @@ namespace Strategies
     {
         public UpdateStateNode Update { get; private set; }
         public StartDecision StartDecision { get; private set; }
+        public OnForceStopNode OnForceStopNode { get; private set; }
 
         public override void Init()
         {
@@ -33,6 +34,8 @@ namespace Strategies
 
             StartDecision = nodes.FirstOrDefault(x => x is StartDecision) as StartDecision;
             Update = nodes.FirstOrDefault(x => x is UpdateStateNode) as UpdateStateNode;
+            OnForceStopNode = nodes.FirstOrDefault(x => x is OnForceStopNode) as OnForceStopNode;
+            
             var addState = nodes.OfType<IAddStateNode>();
 
             foreach (var n in addState)
