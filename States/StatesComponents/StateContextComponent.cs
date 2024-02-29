@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HECSFramework.Core;
+using Sirenix.Reflection.Editor;
 using Strategies;
 
 namespace Components
@@ -32,6 +33,8 @@ namespace Components
         public void Dispose()
         {
             ExitFromStates();
+            CurrentStrategyIndex = 0;
+            CurrentIteration = 0;
             CurrentState = null;
             EarlyUpdateNode = null;
         }
