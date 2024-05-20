@@ -4,11 +4,11 @@ namespace Strategies
 {
     public sealed class  CompareIntNode : DilemmaDecision
     {
-        [Connection(ConnectionPointType.In, "<int>")]
-        public GenericNode<int> IntValue;
-
-        [ExposeField]
-        public int Value;
+        [Connection(ConnectionPointType.In, "<int> A")]
+        public GenericNode<int> ValueA;
+        
+        [Connection(ConnectionPointType.In, "<int> B")]
+        public GenericNode<int> ValueB;
 
         [ExposeField]
         public Operations Operations;
@@ -20,7 +20,7 @@ namespace Strategies
             switch (Operations)
             {
                 case Operations.InEqual:
-                    if (IntValue.Value(entity) == Value)
+                    if (ValueA.Value(entity) == ValueB.Value(entity))
                     {
                         Positive.Execute(entity);
                         return;
@@ -28,7 +28,7 @@ namespace Strategies
                     Negative.Execute(entity);
                     break;
                 case Operations.InMore:
-                    if (IntValue.Value(entity) > Value)
+                    if (ValueA.Value(entity) > ValueB.Value(entity))
                     {
                         Positive.Execute(entity);
                         return;
@@ -36,7 +36,7 @@ namespace Strategies
                     Negative.Execute(entity);
                     break;
                 case Operations.InLess:
-                    if (IntValue.Value(entity) < Value)
+                    if (ValueA.Value(entity) < ValueB.Value(entity))
                     {
                         Positive.Execute(entity);
                         return;
@@ -44,7 +44,7 @@ namespace Strategies
                     Negative.Execute(entity);
                     break;
                 case Operations.MoreOrEqual:
-                    if (IntValue.Value(entity) >= Value)
+                    if (ValueA.Value(entity) >= ValueB.Value(entity))
                     {
                         Positive.Execute(entity);
                         return;
@@ -52,7 +52,7 @@ namespace Strategies
                     Negative.Execute(entity);
                     break;
                 case Operations.LessOrEqual:
-                    if (IntValue.Value(entity) <= Value)
+                    if (ValueA.Value(entity) <= ValueB.Value(entity))
                     {
                         Positive.Execute(entity);
                         return;
