@@ -14,5 +14,6 @@ namespace Components
         
         public bool ManualStart { get => manualStart; }
         public Strategy Strategy => baseStrategy;
+        public bool IsStopped { get; set; }
     }
 }

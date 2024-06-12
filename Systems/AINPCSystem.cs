@@ -13,7 +13,6 @@ namespace Systems
     {
         private Strategy currentStrategy;
         private bool isNeedDecision;
-        private bool isStoped;
 
         [Required]
         public AIStrategyComponent aIStrategyComponent;
@@ -38,13 +37,13 @@ namespace Systems
 
             if (aIStrategyComponent.ManualStart)
             {
-                isStoped = true;
+                aIStrategyComponent.IsStopped = true;
                 isNeedDecision = false;
                 return;
             }
 
             if (currentStrategy == null)
-                isStoped = true;
+                aIStrategyComponent.IsStopped = true;
 
             isNeedDecision = true;
         }
@@ -63,7 +62,7 @@ namespace Systems
 
         public void UpdateLocal()
         {
-            if (!isNeedDecision || isStoped) return;
+            if (!isNeedDecision || aIStrategyComponent.IsStopped) return;
             isNeedDecision = false;
             StateContextComponent.CurrentIteration++;
             currentStrategy.Execute(Owner);
@@ -85,13 +84,13 @@ namespace Systems
                 stateContextComponent.Dispose();
 
             isNeedDecision = false;
-            isStoped = false;
+            aIStrategyComponent.IsStopped = false;
         }
 
         public void CommandReact(ForceStartAICommand command)
         {
             StateContextComponent.CurrentIteration++;
-            isStoped = false;
+            aIStrategyComponent.IsStopped = false;
             isNeedDecision = true;
         }
 
@@ -101,7 +100,7 @@ namespace Systems
             Owner.GetOrAddComponent<StateContextComponent>().ExitFromStates();
             StateContextComponent.CurrentIteration++;
             isNeedDecision = false;
-            isStoped = true;
+            aIStrategyComponent.IsStopped = true;
         }
     }
 
